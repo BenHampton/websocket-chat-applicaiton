@@ -1,0 +1,6 @@
+VUE JS Npm Installs Required To Run Application:
+npm install sockjs-client
+npm install webstomp-client
+npm install vue-router
+npm install bootstrap@3
+npm install vue-custom-scrollbar
