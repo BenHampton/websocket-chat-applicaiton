@@ -3,10 +3,10 @@
 
         <ChatRoomView :receivedMessages="receivedMessages" />
 
-        <SendMessageComponent :hasMaxLength="hasMaxLength"
-                              v-on:send-message="sendMessage"
-                              v-on:is-valid-input-string="isValidInputString"
-                              v-on:update-message-to-send="updateMessageToSend" />
+        <SendMessageView :hasMaxLength="hasMaxLength"
+                         v-on:send-message="sendMessage"
+                         v-on:is-valid-input-string="isHasMaxLength"
+                         v-on:update-message-to-send="updateMessageToSend" />
 
 
     </div>
@@ -14,7 +14,7 @@
 
 <script>
     import ChatRoomView from './ChatRoomView';
-    import SendMessageComponent from '../SendMessage/SendMessageComponent';
+    import SendMessageView from '../SendMessage/SendMessageView';
     import axios from 'axios';
     import SockJS from 'sockjs-client';
     import Stomp from 'webstomp-client';
@@ -23,10 +23,9 @@
         name: 'ChatRoomComponent',
         components: {
             ChatRoomView,
-            SendMessageComponent
+            SendMessageView
         },
         mounted(){
-            //this.renderAvatarImage = this.$store.getters.getAvatarImage;
             this.connect();
         },
         updated() {
@@ -46,7 +45,7 @@
         methods: {
             connect() {
 
-                this.socket = new SockJS("http://localhost:8080/gs-guide-websocket");
+                this.socket = new SockJS("http://localhost:8080/my-chat-app");
 
                 this.stompClient = Stomp.over(this.socket);
 
@@ -107,7 +106,6 @@
                         };
 
                         this.stompClient.send('/app/chat.send', JSON.stringify(chatPayload));
-
                         this.$store.commit('setMessageToSend', '');
                     }
                 }
@@ -136,10 +134,10 @@
                     });
             },
             updateMessageToSend(e){
-                this.$store.commit('setMessageToSend', e.target.value);
-                this.isValidInputString();
+                this.$store.commit('setMessageToSend', e);
+                this.isHasMaxLength();
             },
-            isValidInputString(){
+            isHasMaxLength(){
                 this.hasMaxLength = this.$store.getters.getMessageToSend.length >= this.maxMessageLength;
             }
         }

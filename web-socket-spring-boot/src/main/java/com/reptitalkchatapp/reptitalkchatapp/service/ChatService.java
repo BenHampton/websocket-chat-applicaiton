@@ -19,35 +19,30 @@ public class ChatService {
         this.messageDatabaseUtil = messageDatabaseUtil;
     }
 
-//    public ChatMessage retrieveUserJoined(ChatMessage chatMessage){
-//
-//        log.info(chatMessage.getSender() + " joined");
-//
-//        ChatMessage joinedChatMessage = chatServiceUtil.generateUserJoinedMessage(chatMessage);
-//
-//        chatMessageDatabaseUtil.putMessageIntoPostGresDatebase(joinedChatMessage);
-//
-//        return joinedChatMessage;
-//    }
+    public Message retrieveUserConnectionStatus(Message message, String connectionStatus){
 
-    public Message retrieveUserJoined(Message message){
+        Message connectionMessage = chatServiceUtil.generateUserConnectionMessage(message);
 
-        log.info(message.getSender() + " joined");
+        putMessageIntoPostgresDatabase(connectionMessage);
 
-        Message joinedMessage = chatServiceUtil.generateUserJoinedMessage(message);
+        log.info("user: " + message.getSender() + " connection status is: " + connectionStatus);
 
-        messageDatabaseUtil.putMessageIntoPostGresDatebase(joinedMessage);
-
-        return joinedMessage;
+        return connectionMessage;
     }
 
     public Message retrieveMessageToSend(Message message){
 
         Message sendMessage = chatServiceUtil.generateMessageToSend(message);
 
-        messageDatabaseUtil.putMessageIntoPostGresDatebase(sendMessage);
+        putMessageIntoPostgresDatabase(sendMessage);
 
         return sendMessage;
+    }
+
+    public void putMessageIntoPostgresDatabase(Message message){
+
+        messageDatabaseUtil.putMessageIntoPostgresDatabase(message);
+
     }
 
 }

@@ -1,6 +1,6 @@
 package com.reptitalkchatapp.reptitalkchatapp.service;
 
-import com.reptitalkchatapp.reptitalkchatapp.model.MessageLog;
+import com.reptitalkchatapp.reptitalkchatapp.model.Messages;
 import com.reptitalkchatapp.reptitalkchatapp.model.Message;
 import com.reptitalkchatapp.reptitalkchatapp.repository.MessageRepository;
 import com.reptitalkchatapp.reptitalkchatapp.util.ChatLogServiceUtil;
@@ -24,9 +24,9 @@ public class ChatLogService {
          this.chatLogServiceUtil = chatLogServiceUtil;
     }
 
-    public MessageLog retrieveMessages(Pageable pageable){
+    public Messages retrieveMessages(Pageable pageable){
 
-        MessageLog messageLog = new MessageLog();
+        Messages messages = new Messages();
 
         int pages = messageRepository.findAll(pageable).getTotalPages();
 
@@ -38,11 +38,11 @@ public class ChatLogService {
 
             Page<Message> messagesFromPage = messageRepository.findAll(pageRequest);
 
-            messageLog.getMessageLog().addAll(chatLogServiceUtil.generateMessages(messagesFromPage));
+            messages.getMessageLog().addAll(chatLogServiceUtil.generateMessages(messagesFromPage));
 
             index++;
         }
 
-        return messageLog;
+        return messages;
     }
 }

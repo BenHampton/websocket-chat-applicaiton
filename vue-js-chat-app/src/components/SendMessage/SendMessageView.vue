@@ -3,20 +3,20 @@
         <div class="">
 
             <div class="row">
-               <span v-if="hasMaxLength" class="input-error-message-container">
-                   <div class="input-error-message">
-                       Max number of charters is 150
-                   </div>
-                </span>
+           <span v-if="hasMaxLength" class="input-error-message-container">
+               <div class="input-error-message">
+                   Max number of charters is 150
+               </div>
+            </span>
             </div>
-
 
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="message-input-container">
                     <input placeholder="type message"
                            class="send-message-input"
                            v-bind:class="{'input-error': hasMaxLength}"
-                           @input="$emit('update-message-to-send', $event)"
+                           :value="this.$store.getters.getMessageToSend"
+                           @input="$emit('update-message-to-send', $event.target.value)"
                            @keyup.enter="$emit('send-message')"/>
                 </div>
 
@@ -31,7 +31,6 @@
                 </div>
             </div>
 
-
         </div>
     </div>
 </template>
@@ -39,7 +38,7 @@
 <script>
 
     export default {
-        name: 'SendMessageComponent',
+        name: 'SendMessageView',
         components: {},
         props: ['hasMaxLength']
     }
@@ -49,7 +48,7 @@
 <style scoped>
     .send-message-container {
         background: black;
-        height: 20vh;
+        height: 25vh;
         text-align: center;
     }
 

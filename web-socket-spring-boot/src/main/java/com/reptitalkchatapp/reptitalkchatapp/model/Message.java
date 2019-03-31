@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "chats")
+@Table(name = "chatRoom")
 public class Message {
 
     public enum MessageType {
@@ -29,7 +29,7 @@ public class Message {
     @GeneratedValue(generator = "messageId_generator")
     private Long id;
 
-    @Column(name = "messagesLogged")
+    @Column(name = "chatRoomMessage")
     private String message;
 
     @Column(name = "messageSender")

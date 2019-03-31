@@ -13,7 +13,7 @@ public class MessageDatabaseUtil {
         this.messageRepository = messageRepository;
     }
 
-    public void putMessageIntoPostGresDatebase(Message message){
+    public void putMessageIntoPostgresDatabase(Message message){
 
         messageRepository.save(message);
     }

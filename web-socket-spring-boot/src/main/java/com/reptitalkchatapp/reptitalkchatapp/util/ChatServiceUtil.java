@@ -1,6 +1,7 @@
 package com.reptitalkchatapp.reptitalkchatapp.util;
 
 import com.reptitalkchatapp.reptitalkchatapp.model.Message;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -9,16 +10,25 @@ import java.text.SimpleDateFormat;
 @Component
 public class ChatServiceUtil {
 
-    public Message generateUserJoinedMessage(Message message){
+    public Message generateUserConnectionMessage(Message message){
 
         Message copyMessage = new Message();
 
         BeanUtils.copyProperties(message, copyMessage);
 
-        copyMessage.setMessage(message.getSender() + " Joined! ");
+        String connectionStatusMessage;
+
+        if (StringUtils.equalsIgnoreCase(message.getActionType(), Message.MessageType.JOIN.name())) {
+            connectionStatusMessage = "Joined!";
+        } else {
+            connectionStatusMessage = " Left!";
+        }
+
+        copyMessage.setMessage(message.getSender() + " " + connectionStatusMessage);
         copyMessage.setActionType(message.getActionType());
         copyMessage.setTimeStamp(retrieveTimeStamp());
         copyMessage.setAvatarImage(message.getAvatarImage());
+
         return copyMessage;
     }
 

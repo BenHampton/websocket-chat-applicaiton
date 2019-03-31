@@ -9,15 +9,17 @@
 
                 <div v-for="message in receivedMessages" :key="message.date" class="message-container col-md-12 col-sm-12 col-xs-12"  v-bind:class="{'message-container-join': message.messageType === 'JOIN'}">
 
-                    <div class="message" v-bind:class="{'message-join': message.messageType === 'JOIN'}">
-                            <span class="message-avatar text-xs-left col-md-1 col-sm-2 col-xs-4" v-bind:class="{'message-avatar-joined': message.messageType === 'JOIN'}">
+                    <div class="message" v-bind:class="{'message-join': ( message.messageType === 'JOIN' || message.messageType === 'LEAVE' ) }">
+                            <span class="message-avatar text-xs-left col-md-1 col-sm-2 col-xs-4" v-bind:class="{'message-avatar-joined': ( message.messageType === 'JOIN'  || message.messageType === 'LEAVE' ) }">
                                 <img :src="message.messageAvatar" alt="message.messageAvatar" class="avatar-image ">
                             </span>
-                        <span v-bind:class="message.messageType === 'JOIN' ?  'message-text-joined col-md-12 col-sm-12 col-xs-12' : 'message-text col-md-9 col-sm-8 col-xs-8'" >
-                                <span>&#60;{{message.messageSender}}&#62;</span>
+                        <span v-bind:class="( message.messageType === 'JOIN' || message.messageType === 'LEAVE' ) ?  'message-text-joined col-md-12 col-sm-12 col-xs-12' : 'message-text col-md-9 col-sm-8 col-xs-8'" >
+                                <span v-bind:class="( message.messageType === 'JOIN' || message.messageType === 'LEAVE' ) ? 'message-user-name-joined' : 'message-user-name' " >
+                                    &#60;{{message.messageSender}}&#62;
+                                </span>
                                 {{message.message}}
                             </span>
-                        <span class="message-date text-right col-md-2 col-sm-2 col-xs-12" v-bind:class="{'c': message.messageType === 'JOIN'}">
+                        <span class="message-date text-right col-md-2 col-sm-2 col-xs-12" v-bind:class="{'message-date-joined': ( message.messageType === 'JOIN' || message.messageType === 'LEAVE' ) }">
                                 {{message.messageDate}}
                             </span>
                     </div>
@@ -88,6 +90,9 @@
         display: none !important;
         color: white;
     }
+    .message-user-name-joined {
+        display: none !important;
+    }
     .message-date-joined {
         display: none !important;
         color: white;
@@ -95,7 +100,9 @@
     .message-text-joined {
         color: lime !important;
     }
-
+    .message-user-name {
+        color: lime;
+    }
 
     .message-avatar {
         color: black;

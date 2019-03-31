@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 
-public class MessageLog {
+public class Messages {
 
     private List<Message> messageLog = new ArrayList<>();
 

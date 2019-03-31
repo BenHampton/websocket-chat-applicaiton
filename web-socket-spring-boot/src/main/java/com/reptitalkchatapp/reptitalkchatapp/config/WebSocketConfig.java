@@ -13,7 +13,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry
-                .addEndpoint("/gs-guide-websocket")
+                .addEndpoint("/my-chat-app")
                 .setAllowedOrigins("http://localhost:8008")
                 .withSockJS();
     }

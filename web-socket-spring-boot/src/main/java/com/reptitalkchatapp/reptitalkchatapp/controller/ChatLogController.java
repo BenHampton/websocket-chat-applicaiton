@@ -1,6 +1,6 @@
 package com.reptitalkchatapp.reptitalkchatapp.controller;
 
-import com.reptitalkchatapp.reptitalkchatapp.model.MessageLog;
+import com.reptitalkchatapp.reptitalkchatapp.model.Messages;
 import com.reptitalkchatapp.reptitalkchatapp.model.Message;
 import com.reptitalkchatapp.reptitalkchatapp.repository.MessageRepository;
 import com.reptitalkchatapp.reptitalkchatapp.service.ChatLogService;
@@ -26,7 +26,7 @@ public class ChatLogController {
     }
 
     @GetMapping(path = "/messages")
-    public ResponseEntity<MessageLog> retrieveMessages(Pageable pageable){
+    public ResponseEntity<Messages> retrieveMessages(Pageable pageable){
         return new ResponseEntity<>(chatLogService.retrieveMessages(pageable), HttpStatus.OK);
     }
 
